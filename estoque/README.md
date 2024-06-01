@@ -1,7 +1,7 @@
 ## Estoque
 <div align="center">
-  <img src="./assets/register.jpg" width="350px"/>
-  <img src="./assets/products.jpg" width="350px"/>
+  <img src="./assets/register.jpeg" width="350px"/>
+  <img src="./assets/products.jpeg" width="350px"/>
 </div>
 
 In this project, I created a product creation and visualization application without using an API, saving only locally.
