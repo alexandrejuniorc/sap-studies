@@ -1,0 +1,10 @@
+/* Enter your custom styles here */
+
+.myCustomStyle .myCustomTitle{
+  font-weight: bold;
+}
+
+.myCustomStyle .myCustomTileSize{
+  padding: 1rem;
+  cursor: pointer;
+}

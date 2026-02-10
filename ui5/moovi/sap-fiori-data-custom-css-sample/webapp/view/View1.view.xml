@@ -1,0 +1,22 @@
+<mvc:View controllerName="sapfioridatacustomcsssample.controller.View1"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns="sap.m"
+	xmlns:f="sap.f">
+	<Page id="page" title="{i18n>title}">
+		<content>
+			<f:GridList id="gridList" headerText="{i18n>company_list_header_txt}" items="{/ScarrSet}">
+				<f:GridListItem id="_IDGenGridListItem" class="myCustomTileSize">
+					<VBox id="_IDGenVBox" class="sapUiSmallMargin">
+						<layoutData>
+							<FlexItemData id="_IDGenFlexItemData" growFactor="1" shrinkFactor="0" />
+							<!-- Don't shrink below minimum size. Fill space if available. -->
+						</layoutData>
+
+						<Title id="_IDGenTitle" text="{Carrname}" wrapping="true" class="myCustomTitle"/>
+						<Label id="_IDGenLabel" text="{Carrid}" wrapping="true" />
+					</VBox>
+				</f:GridListItem>
+			</f:GridList>
+		</content>
+	</Page>
+</mvc:View>
