@@ -1,0 +1,13 @@
+<mvc:View controllerName="databindingpropertysample.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+        <!-- DATA BINDING USING CONECTION FROM model/company.json CONFIGURATED IN manifest.json -->
+        <Input id="companyInput" value="{companyModel>/ScarrSet/Carrname}" />
+
+        <!-- DATA BINDING USING CONTROLLER  -->
+        <Input id="companyInput2" />
+        </content>
+    </Page>
+</mvc:View>
