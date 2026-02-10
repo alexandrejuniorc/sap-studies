@@ -1,0 +1,43 @@
+<mvc:View
+    controllerName="databindingexpressionsample.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <List
+                id="companyList"
+                items="{/SpfliSet}"
+                headerText="{i18n>company_list_header_txt}"
+            >
+                <ObjectListItem
+                    id="spflieObjListItem"
+                    title="{Cityfrom} {i18n>to_txt} {Cityto}"
+                    type="Active"
+                >
+                    <!-- 'firstStatus' IS AN AGGREGATION FROM 'ObjectListItem' -->
+                    <firstStatus>
+                        <ObjectStatus
+                            id="flTimeObjStatus"
+                            text="{i18n>fly_time}: {Fltime}"
+                            state="{= ${Fltime} > 300 ? 'Error' : 'Success'}"
+                        />
+                    </firstStatus>
+
+                    <ObjectAttribute
+                        id="urlAttr"
+                        text="{Connid}"
+                    />
+                    <ObjectAttribute
+                        id="currAttr"
+                        text="{Carrid}"
+                    />
+                </ObjectListItem>
+            </List>
+        </content>
+    </Page>
+</mvc:View>
