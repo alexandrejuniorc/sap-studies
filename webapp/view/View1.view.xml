@@ -1,0 +1,38 @@
+<mvc:View
+    controllerName="datafiltersample.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <SearchField
+                id="searchFieldCompany"
+                search="onFilterCompanies"
+            />
+            <List
+                id="companyList"
+                items="{ path: '/ScarrSet', sorter: {path: 'Carrname', descending: false}}"
+                headerText="{i18n>company_list_header_txt}"
+            >
+                <ObjectListItem
+                    id="scarrObjListItem"
+                    title="{Carrname}"
+                    type="Active"
+                >
+                    <ObjectAttribute
+                        id="urlAttr"
+                        text="{Url}"
+                    />
+                    <ObjectAttribute
+                        id="currAttr"
+                        text="{Currcode}"
+                    />
+                </ObjectListItem>
+            </List>
+        </content>
+    </Page>
+</mvc:View>
