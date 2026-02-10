@@ -1,0 +1,92 @@
+@BASE_URL = http://localhost:4004/odata/v4/main/Customers
+@CUSTOMER_ID = e0c775ce-bb6b-4802-847d-6ee4416e8ac6
+@BASIC_AUTH = Basic john:test@12345
+
+
+@name = Get Customers
+GET {{BASE_URL}}
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Create Customer
+POST {{BASE_URL}}
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com"
+}
+
+
+###
+@name = Get Customer by ID
+GET {{BASE_URL}}(id={{CUSTOMER_ID}})
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Update Customer by ID
+PUT {{BASE_URL}}(id={{CUSTOMER_ID}})
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+{
+"firstName": "Jane",
+"lastName": "Doe",
+"email": "jane.doe@example.com"
+}
+
+
+###
+PATCH {{BASE_URL}}(id={{CUSTOMER_ID}})
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+{
+"email": "jane.doe@example.com"
+}
+
+
+###
+@name = Delete Customer by ID
+DELETE {{BASE_URL}}(id={{CUSTOMER_ID}})
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Get Customers Than Not Ends With
+GET {{BASE_URL}}?$filter=not endsWith(firstName, '-16955584')
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Get Customers Than Ends With
+GET {{BASE_URL}}?$filter=endsWith(firstName, '-16955584') and email eq 'email-16955584'
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+### 
+@name = Get Customers Than Ends With And Email Is Not Equal
+GET {{BASE_URL}}?$filter=endsWith(firstName, '-16955584') and email ne 'email-16955584'
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+### 
+@name = Get Customers With Search
+GET {{BASE_URL}}?$search=576
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+### 
+@name = Get Customers Ordered By FirstName Descending
+GET {{BASE_URL}}?$orderby=firstName desc
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}

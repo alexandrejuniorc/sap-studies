@@ -1,0 +1,32 @@
+{
+  "[development]": {
+    "requires": {
+      "db": {
+        "impl": "@cap-js/sqlite",
+        "credentials": { "url": ":memory:" },
+        "kind": "sqlite"
+      },
+      "auth": {
+        "kind": "basic",
+        "users": {
+          "john": {
+            "password": "test@12345",
+            "roles": ["admin"],
+            "attr": {
+              "id": "1",
+              "groups": ["grupo1", "grupo2"]
+            }
+          },
+          "jane": {
+            "password": "test@12345",
+            "roles": ["readonly_user"],
+            "attr": {
+              "id": "2",
+              "groups": ["grupo2"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

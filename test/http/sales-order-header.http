@@ -1,0 +1,119 @@
+@BASE_URL = http://localhost:4004/odata/v4/main/SalesOrderHeaders
+@SALES_ORDER_HEADER_ID = ec281f5b-2dda-43a7-868d-d0acdb0be51a
+@CUSTOMER_ID = 45522078-dcaa-4600-bd1e-2499dcb6d316
+# Product Without Stock
+@PRODUCT_ID_1 = 31405247-dbb1-4a18-b90d-1276a54ffb8a
+# Product With Stock
+@PRODUCT_ID_2 = 27137604-175f-463d-8700-ed51690025da
+@BASIC_AUTH = Basic john:test@12345
+
+
+@name = Get Sales Order Headers
+GET {{BASE_URL}}
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Create Sales Order Header
+POST {{BASE_URL}}
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+{
+  "customer_id": "{{CUSTOMER_ID}}",
+  "items": [
+    {
+      "header_id": "{{SALES_ORDER_HEADER_ID}}",
+      "product_id": "{{PRODUCT_ID_2}}",
+      "quantity": 2,
+      "price": 15000
+    },
+    {
+      "header_id": "{{SALES_ORDER_HEADER_ID}}",
+      "product_id": "{{PRODUCT_ID_2}}",
+      "quantity": 2,
+      "price": 1.25
+    }
+  ]
+}
+
+
+###
+@name = Get Sales Order Header by ID
+GET {{BASE_URL}}(id={{SALES_ORDER_HEADER_ID}})
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Update Sales Order Header by ID
+PUT {{BASE_URL}}(id={{SALES_ORDER_HEADER_ID}})
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+{}
+
+
+###
+@name = Delete Sales Order Header by ID
+DELETE {{BASE_URL}}(id={{SALES_ORDER_HEADER_ID}})
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Get Sales Order Headers With Expanded Items and Customer
+GET {{BASE_URL}}?$filter=id eq {{SALES_ORDER_HEADER_ID}}&$expand=items($expand=product),customer
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Get Sales Order Headers Greater Than Or Equal to 5 Millions 
+GET {{BASE_URL}}?$filter=totalAmount ge 5000000
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Get Sales Order Headers Less Than Or Equal to 5 Millions
+GET {{BASE_URL}}?$filter=totalAmount le 5000000
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Get Sales Order Headers Only With Customer and Sales Order Header Id
+GET {{BASE_URL}}?$select=customer&$expand=customer($select=email)
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+### 
+@name = Get Sales Order Headers Count
+GET {{BASE_URL}}/$count
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+### 
+@name = Get Sales Order Headers Paginated
+# skip is a number of records to skip in the response
+# top is a number of records to return in the response
+GET {{BASE_URL}}?$skip=0&$top=5
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+### 
+@name = Get Sales Order Headers With Search
+GET {{BASE_URL}}?$search=1jmk9
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
+
+
+###
+@name = Get Sales Order Logs
+GET http://localhost:4004/odata/v4/main/SalesOrderLogs
+Content-Type: application/json
+Authorization: {{BASIC_AUTH}}
