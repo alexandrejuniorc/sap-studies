@@ -1,0 +1,70 @@
+<mvc:View
+    controllerName="databindingelementsample.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+>
+    <!-- O NOME "LAYOUT" NA CHAMADA ACIMA É APENAS UM ALIAS PARA SER REFERENCIADO NO CÓDIGO-->
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <Title
+                id="_IDGenTitle"
+                text="Exemplo com data binding property"
+            />
+            <layout:VerticalLayout
+                id="verticalLayout"
+                width="100%"
+                class="sapUiContentPadding"
+                binding="{companyModel>/ScarrSet}"
+            >
+                <Text
+                    id="txtCarrid"
+                    text="{companyModel>Carrid}"
+                />
+                <Text
+                    id="txtCarrname"
+                    text="{companyModel>Carrname}"
+                />
+                <Text
+                    id="txtCurrcode"
+                    text="{companyModel>Currcode}"
+                />
+                <Text
+                    id="txtUrl"
+                    text="{companyModel>Url}"
+                />
+            </layout:VerticalLayout>
+
+            <Title
+                id="_IDGenTitle1"
+                text="Exemplo com data binding element"
+            />
+            <layout:VerticalLayout
+                id="verticalLayout2"
+                width="100%"
+                class="sapUiContentPadding"
+            >
+                <Text
+                    id="txtCarrid2"
+                    text="{companyModel>Carrid}"
+                />
+                <Text
+                    id="txtCarrname2"
+                    text="{companyModel>Carrname}"
+                />
+                <Text
+                    id="txtCurrcode2"
+                    text="{companyModel>Currcode}"
+                />
+                <Text
+                    id="txtUrl2"
+                    text="{companyModel>Url}"
+                />
+            </layout:VerticalLayout>
+        </content>
+    </Page>
+</mvc:View>
