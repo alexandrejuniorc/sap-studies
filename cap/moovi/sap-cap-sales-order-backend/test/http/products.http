@@ -1,0 +1,53 @@
+@BASE_URL = http://localhost:4004/odata/v4/main/Products
+@PRODUCT_ID = e0c775ce-bb6b-4802-847d-6ee4416e8ac6
+
+@name = Get Products
+GET {{BASE_URL}}
+Content-Type: application/json
+
+
+###
+@name = Create Product
+POST {{BASE_URL}}
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "price": 1299.99
+}
+
+
+###
+@name = Get Product by ID
+GET {{BASE_URL}}(id={{PRODUCT_ID}})
+Content-Type: application/json
+
+
+###
+@name = Update Product by ID
+PUT {{BASE_URL}}(id={{PRODUCT_ID}})
+Content-Type: application/json
+
+{
+  "name": "Gaming Laptop",
+  "price": 1599.99
+}
+
+
+###
+@name = Patch Product by ID
+PATCH {{BASE_URL}}(id={{PRODUCT_ID}})
+Content-Type: application/json
+
+{
+  "price": 1499.99
+}
+
+
+###
+@name = Delete Product by ID
+DELETE {{BASE_URL}}(id={{PRODUCT_ID}})
+Content-Type: application/json
+
+
+###

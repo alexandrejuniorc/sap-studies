@@ -1,0 +1,21 @@
+{
+    // Visit https://aka.ms/tsconfig to read more about this file
+    "compilerOptions": {
+        "lib": ["ES2024"],
+        "module": "node20",
+        "target": "ES2024",
+        "moduleResolution": "node16",
+        "strict": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "outDir": "./dist",
+        "rootDir": "./",
+        "paths": {
+            "@models/*": ["./@cds-models/*/index.ts"],
+            "@/*": ["./srv/*"]
+        }
+    },
+    "include": ["srv"],
+    "exclude": ["node_modules"]
+}
