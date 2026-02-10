@@ -1,0 +1,42 @@
+<mvc:View
+    controllerName="databindingaggregationbindingsample.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <!-- BINDING AGGREGATION WITHOUT JAVASCRIPT
+            
+             <List
+                id="companyList"
+                items="{/ScarrSet}"
+                headerText="{i18n>company_list_header_txt}"
+            >
+                <ObjectListItem
+                    id="scarrObjListItem"
+                    title="{Carrname}"
+                    type="Active"
+                >
+                    <ObjectAttribute
+                        id="urlAttr"
+                        text="{Url}"
+                    />
+                    <ObjectAttribute
+                        id="currAttr"
+                        text="{Currcode}"
+                    />
+                </ObjectListItem>
+            </List> -->
+
+            <!-- BINDING AGGREGATION WITH JAVASCRIPT -->
+            <List
+                id="companyList"
+                headerText="{i18n>company_list_header_txt}"
+            />
+        </content>
+    </Page>
+</mvc:View>
