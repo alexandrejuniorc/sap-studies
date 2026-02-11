@@ -1,7 +1,34 @@
-<mvc:View controllerName="moovi.sapfioridatanavigationsample.controller.View1"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
+<mvc:View
+    controllerName="moovi.sapfioridatanavigationsample.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <List
+                id="companyList"
+                items="{/ScarrSet}"
+                headerText="{i18n>company_list_header_txt}"
+            >
+                <ObjectListItem
+                    id="scarrObjListItem"
+                    title="{Carrname}"
+                    type="Active"
+                >
+                    <ObjectAttribute
+                        id="urlAttr"
+                        text="{Url}"
+                    />
+                    <ObjectAttribute
+                        id="currAttr"
+                        text="{Currcode}"
+                    />
+                </ObjectListItem>
+            </List>
+        </content>
     </Page>
 </mvc:View>
