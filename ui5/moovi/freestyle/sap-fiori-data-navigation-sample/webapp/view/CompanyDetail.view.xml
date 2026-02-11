@@ -1,8 +1,0 @@
-<mvc:View controllerName="sapfioridatanavigationsample.controller.CompanyDetail"
-  xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-  xmlns="sap.m">
-  <Page id="companyDetailPage">
-
-    <Text id="_IDGenText" text="Dentro da página"></Text>
-  </Page>
-</mvc:View>

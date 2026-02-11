@@ -1,5 +1,0 @@
-<mvc:View controllerName="sapfioridatanavigationsample.controller.NotFound"
-  xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-  xmlns="sap.m">
-  <Page id="notFoundPage"></Page>
-</mvc:View>
