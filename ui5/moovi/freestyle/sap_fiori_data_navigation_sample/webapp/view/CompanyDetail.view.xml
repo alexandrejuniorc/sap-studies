@@ -82,5 +82,17 @@
                 </content>
             </Panel>
         </content>
+
+        <footer>
+            <OverflowToolbar id="_IDGenOverflowToolbar">
+                <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                <Button
+                    id="_IDGenButtonEdit"
+                    text="Salvar"
+                    type="Accept"
+                    press=".onBtnSavePress"
+                />
+            </OverflowToolbar>
+        </footer>
     </Page>
 </mvc:View>
