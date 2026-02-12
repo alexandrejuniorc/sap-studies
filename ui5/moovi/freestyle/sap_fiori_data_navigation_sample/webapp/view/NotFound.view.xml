@@ -1,0 +1,18 @@
+<mvc:View
+    controllerName="moovi.sapfioridatanavigationsample.controller.NotFound"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+>
+    <Page
+        id="NotFoundPage"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+    >
+        <IllustratedMessage
+            id="_IDGenIllustratedMessage"
+            title="{i18n>not_found_title}"
+            description="{i18n>not_found_description}"
+            illustrationType="sap-icon://documents"
+        />
+    </Page>
+</mvc:View>

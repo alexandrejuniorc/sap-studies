@@ -84,15 +84,21 @@
         "viewPath": "moovi.sapfioridatanavigationsample.view",
         "controlAggregation": "pages",
         "controlId": "app",
-        "clearControlAggregation": false
+        "clearControlAggregation": false,
+        "bypassed": {
+          "target": ["TargetNotFound"]
+        }
       },
       "routes": [
         {
           "name": "RouteView1",
-          "pattern": ":?query:",
-          "target": [
-            "TargetView1"
-          ]
+          "pattern": "",
+          "target": ["TargetView1"]
+        },
+        {
+          "name": "RouteCompanyDetail",
+          "pattern": "company/{carrId}",
+          "target": ["TargetCompanyDetail"]
         }
       ],
       "targets": {
@@ -102,6 +108,20 @@
           "clearControlAggregation": false,
           "viewId": "View1",
           "viewName": "View1"
+        },
+        "TargetCompanyDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "CompanyDetail",
+          "viewName": "CompanyDetail"
+        },
+        "TargetNotFound": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "NotFound",
+          "viewName": "NotFound"
         }
       }
     },
