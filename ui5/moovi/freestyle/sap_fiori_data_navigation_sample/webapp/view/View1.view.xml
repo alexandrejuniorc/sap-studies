@@ -2,8 +2,16 @@
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
-        <content >
-            <List id="companyList" items="{/ScarrSet}" headerText="{i18n>company_list_header_txt}">
+        <content>
+            <List id="companyList" items="{/ScarrSet}">
+                <headerToolbar>
+                    <OverflowToolbar id="_IDGenOverflowToolbar1">
+                        <Title id="companyListHeader" text="{i18n>company_list_header_txt}" level="H2" />
+                        <ToolbarSpacer id="_IDGenToolbarSpacer2" />
+                        <Button id="_IDGenButton" icon="sap-icon://create" text="Novo" press=".onBtnCreatePress" />
+                    </OverflowToolbar>
+                </headerToolbar>
+
                 <ObjectListItem id="scarrObjListItem" title="{Carrname}" type="Active" press="onListItemPress">
                     <ObjectAttribute id="urlAttr" text="{Url}" />
                     <ObjectAttribute id="currAttr" text="{Currcode}" />

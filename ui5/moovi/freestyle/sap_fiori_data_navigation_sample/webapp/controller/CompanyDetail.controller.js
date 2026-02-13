@@ -25,18 +25,55 @@ sap.ui.define(
           oArgs = oEvent.getParameter("arguments");
           oView = this.getView();
 
-          oView.bindElement({
-            path: "/ScarrSet('" + oArgs.carrId + "')",
-            events: {
-              change: this._onBindingChange.bind(this),
-              dataRequested: function () {
-                oView.setBusy(true);
+          // VERIFICA SE O ID DA EMPRESA PASSADO COMO PARÂMETRO É DIFERENTE DE "New",
+          // CASO SEJA, A VINCULAÇÃO DO MODELO É REALIZADA COM O REGISTRO CORRESPONDENTE AO ID DA EMPRESA,
+          // CASO CONTRÁRIO, A FUNÇÃO DE INICIALIZAÇÃO DE UMA NOVA EMPRESA É CHAMADA
+          if (oArgs.carrId !== "New") {
+            oView.bindElement({
+              path: "/ScarrSet('" + oArgs.carrId + "')",
+              events: {
+                change: this._onBindingChange.bind(this),
+                dataRequested: function () {
+                  oView.setBusy(true);
+                },
+                dataReceived: function () {
+                  oView.setBusy(false);
+                },
               },
-              dataReceived: function () {
-                oView.setBusy(false);
-              },
+            });
+          } else {
+            this._initNewCompany();
+          }
+        },
+
+        // FUNÇÃO PARA INICIALIZAR UMA NOVA EMPRESA, ONDE UM NOVO REGISTRO É CRIADO NO MODELO E VINCULADO AO CONTEXTO DA VISÃO
+        _initNewCompany: function () {
+          var oModel = this.getView().getModel();
+
+          // CONFIGURA O MODELO PARA USAR GRUPOS DE MUDANÇA DIFERIDOS,
+          // ONDE AS MUDANÇAS SÃO AGRUPADAS EM UM GRUPO DE MUDANÇA ESPECÍFICO PARA CRIAÇÃO DE REGISTROS
+          oModel.setDeferredGroups(["creategroupId"]);
+
+          // CONFIGURA O MODELO PARA USAR O GRUPO DE MUDANÇA ESPECÍFICO PARA CRIAÇÃO DE REGISTROS NA ENTIDADE "ScarrSet"
+          oModel.setChangeGroups({
+            ScarrSet: {
+              groupId: "creategroupId",
+              changeSetId: "ID",
             },
           });
+
+          // CRIA UM NOVO REGISTRO NO MODELO PARA A ENTIDADE "ScarrSet" E VINCULA O CONTEXTO DA VISÃO AO NOVO REGISTRO CRIADO
+          var oContext = oModel.createEntry("/ScarrSet", {
+            groupId: "creategroupId",
+            properties: {},
+          });
+
+          // OBTÉM A VISÃO ATUAL E VINCULA O CONTEXTO DA VISÃO AO NOVO REGISTRO CRIADO,
+          // PERMITINDO QUE OS DADOS SEJAM EDITADOS NA TELA DE DETALHE DA EMPRESA
+          var oView = this.getView();
+
+          // VINCULA O CONTEXTO DA VISÃO AO NOVO REGISTRO CRIADO, PERMITINDO QUE OS DADOS SEJAM EDITADOS NA TELA DE DETALHE DA EMPRESA
+          oView.setBindingContext(oContext.getPath());
         },
 
         // FUNÇÃO PARA VERIFICAR SE HÁ DADOS VINCULADOS AO CONTEXTO DA VISÃO, CASO CONTRÁRIO, EXIBE UMA TELA DE "NÃO ENCONTRADO"
