@@ -72,6 +72,10 @@
           "useBatch": true,
           "defaultUpdateMethod": "PUT"
         }
+      },
+      "editCompanyModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "/model/editCompany.json"
       }
     },
     "resources": {

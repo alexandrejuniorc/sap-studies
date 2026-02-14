@@ -15,8 +15,8 @@
                 <content>
                     <f:SimpleForm id="formEdit" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
                         <f:content>
-                            <Label id="_IDGenLabel1" text="{i18n>companyID}" />
-                            <Input id="_IDGenInput2" type="Text" value="{Carrid}" />
+                            <Label id="_IDGenLabel1" text="{i18n>companyID}" visible="{editCompanyModel>/isNew}" />
+                            <Input id="_IDGenInput2" type="Text" value="{Carrid}" visible="{editCompanyModel>/isNew}"/>
 
                             <Label id="_IDGenLabel" text="{i18n>CompanyName}" />
                             <Input id="_IDGenInput" type="Text" value="{Carrname}" />

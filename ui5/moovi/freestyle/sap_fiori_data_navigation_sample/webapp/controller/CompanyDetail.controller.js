@@ -25,6 +25,12 @@ sap.ui.define(
           // OBTÉM A VISÃO ATUAL PARA REALIZAR A VINCULAÇÃO DO MODELO COM O REGISTRO CORRESPONDENTE AO ID DA EMPRESA PASSADO COMO PAR
           var oView = this.getView();
 
+          var oEditCompanyModel = oView.getModel("editCompanyModel");
+          var isCreatingNewCompany = oArgs.carrId === "New";
+          // Define a propriedade "isNew" no modelo "editCompanyModel" para indicar se a empresa sendo editada é
+          // nova ou existente, com base no ID da empresa passado como parâmetro
+          oEditCompanyModel.setProperty("/isNew", isCreatingNewCompany);
+
           // VERIFICA SE O ID DA EMPRESA PASSADO COMO PARÂMETRO É "New", CASO SEJA,
           // A FUNÇÃO DE INICIALIZAÇÃO DE UMA NOVA EMPRESA É CHAMADA, CASO CONTRÁRIO,
           // A VINCULAÇÃO DO MODELO É REALIZADA COM O REGISTRO CORRESPONDENTE AO ID DA EMPRESA
@@ -168,6 +174,8 @@ sap.ui.define(
           }
         },
 
+        // FUNÇÃO PARA EXCLUIR O REGISTRO DA EMPRESA, ONDE UMA CAIXA DE DIÁLOGO DE CONFIRMAÇÃO É
+        // EXIBIDA AO USUÁRIO PARA CONFIRMAR A AÇÃO DE EXCLUSÃO, E AS FUNÇÕES DE SUCESSO E ERRO SÃO DEFINIDAS
         onBtnDeletePress: function (oEvent) {
           var oView = this.getView();
           var oModel = oView.getModel();
@@ -186,11 +194,14 @@ sap.ui.define(
           });
         },
 
+        // FUNÇÃO DE SUCESSO PARA A EXCLUSÃO DO REGISTRO DA EMPRESA, ONDE UMA MENSAGEM DE SUCESSO É
+        // EXIBIDA AO USUÁRIO E A NAVEGAÇÃO DE VOLTA PARA A TELA ANTERIOR É REALIZADA
         handleSuccessDelete: function (oRes) {
           MessageToast.show("Registro excluído com sucesso!");
           this.onNavBack();
         },
 
+        // FUNÇÃO DE ERRO PARA A EXCLUSÃO DO REGISTRO DA EMPRESA, ONDE UMA MENSAGEM DE ERRO É EXIBIDA AO USUÁRIO
         handleErrorDelete: function (oError) {
           if (oError) {
             if (oError.responseText) {
