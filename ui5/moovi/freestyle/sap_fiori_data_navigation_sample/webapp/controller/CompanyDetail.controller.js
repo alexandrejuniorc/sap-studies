@@ -46,6 +46,14 @@ sap.ui.define(
           }
         },
 
+        // FUNÇÃO PARA VERIFICAR SE HÁ DADOS VINCULADOS AO CONTEXTO DA VISÃO, CASO CONTRÁRIO, EXIBE UMA TELA DE "NÃO ENCONTRADO"
+        _onBindingChange: function () {
+          // No data for the binding
+          if (!this.getView().getBindingContext()) {
+            this.getRouter().getTargets().display("TargetNotFound");
+          }
+        },
+
         // FUNÇÃO PARA INICIALIZAR UMA NOVA EMPRESA, ONDE UM NOVO REGISTRO É CRIADO NO MODELO E VINCULADO AO CONTEXTO DA VISÃO
         _initNewCompany: function () {
           var oModel = this.getView().getModel();
@@ -73,15 +81,8 @@ sap.ui.define(
           var oView = this.getView();
 
           // VINCULA O CONTEXTO DA VISÃO AO NOVO REGISTRO CRIADO, PERMITINDO QUE OS DADOS SEJAM EDITADOS NA TELA DE DETALHE DA EMPRESA
-          oView.setBindingContext(oContext.getPath());
-        },
-
-        // FUNÇÃO PARA VERIFICAR SE HÁ DADOS VINCULADOS AO CONTEXTO DA VISÃO, CASO CONTRÁRIO, EXIBE UMA TELA DE "NÃO ENCONTRADO"
-        _onBindingChange: function () {
-          // No data for the binding
-          if (!this.getView().getBindingContext()) {
-            this.getRouter().getTargets().display("TargetNotFound");
-          }
+          // oView.setBindingContext(oContext.getPath());
+          oView.setBindingContext(oContext);
         },
 
         // FUNÇÃO PARA SALVAR AS ALTERAÇÕES FEITAS NA TELA DE DETALHE DA EMPRESA,
@@ -101,7 +102,9 @@ sap.ui.define(
           var oModel = this.getView().getModel();
 
           if (oRes.__batchResponses) {
-            var status = parseInt(oRes.__batchResponses[0].response.statusCode);
+            var status = parseInt(
+              oRes.__batchResponses[0].__changeResponses[0].statusCode,
+            );
 
             if (status >= 400) {
               var oResponseBody = JSON.parse(
