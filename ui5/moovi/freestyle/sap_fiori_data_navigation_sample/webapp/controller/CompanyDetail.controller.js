@@ -20,30 +20,31 @@ sap.ui.define(
 
         // EVENTO DE NAVEGAÇÃO PARA A TELA DE DETALHE DA EMPRESA, ONDE O ID DA EMPRESA É PASSADO COMO PARÂMETRO NA URL
         onRouteMatched: function (oEvent) {
-          var oArgs, oView;
+          // OBTÉM OS PARÂMETROS DA ROTA, ONDE O ID DA EMPRESA É EXTRAÍDO PARA REALIZAR A VINCULAÇÃO DO MODELO COM O REGISTRO CORRESPONDENTE
+          var oArgs = oEvent.getParameter("arguments");
+          // OBTÉM A VISÃO ATUAL PARA REALIZAR A VINCULAÇÃO DO MODELO COM O REGISTRO CORRESPONDENTE AO ID DA EMPRESA PASSADO COMO PAR
+          var oView = this.getView();
 
-          oArgs = oEvent.getParameter("arguments");
-          oView = this.getView();
-
-          // VERIFICA SE O ID DA EMPRESA PASSADO COMO PARÂMETRO É DIFERENTE DE "New",
-          // CASO SEJA, A VINCULAÇÃO DO MODELO É REALIZADA COM O REGISTRO CORRESPONDENTE AO ID DA EMPRESA,
-          // CASO CONTRÁRIO, A FUNÇÃO DE INICIALIZAÇÃO DE UMA NOVA EMPRESA É CHAMADA
-          if (oArgs.carrId !== "New") {
-            oView.bindElement({
-              path: "/ScarrSet('" + oArgs.carrId + "')",
-              events: {
-                change: this._onBindingChange.bind(this),
-                dataRequested: function () {
-                  oView.setBusy(true);
-                },
-                dataReceived: function () {
-                  oView.setBusy(false);
-                },
-              },
-            });
-          } else {
+          // VERIFICA SE O ID DA EMPRESA PASSADO COMO PARÂMETRO É "New", CASO SEJA,
+          // A FUNÇÃO DE INICIALIZAÇÃO DE UMA NOVA EMPRESA É CHAMADA, CASO CONTRÁRIO,
+          // A VINCULAÇÃO DO MODELO É REALIZADA COM O REGISTRO CORRESPONDENTE AO ID DA EMPRESA
+          if (oArgs.carrId === "New") {
             this._initNewCompany();
+            return;
           }
+
+          oView.bindElement({
+            path: "/ScarrSet('" + oArgs.carrId + "')",
+            events: {
+              change: this._onBindingChange.bind(this),
+              dataRequested: function () {
+                oView.setBusy(true);
+              },
+              dataReceived: function () {
+                oView.setBusy(false);
+              },
+            },
+          });
         },
 
         // FUNÇÃO PARA VERIFICAR SE HÁ DADOS VINCULADOS AO CONTEXTO DA VISÃO, CASO CONTRÁRIO, EXIBE UMA TELA DE "NÃO ENCONTRADO"
@@ -56,7 +57,11 @@ sap.ui.define(
 
         // FUNÇÃO PARA INICIALIZAR UMA NOVA EMPRESA, ONDE UM NOVO REGISTRO É CRIADO NO MODELO E VINCULADO AO CONTEXTO DA VISÃO
         _initNewCompany: function () {
-          var oModel = this.getView().getModel();
+          var oView = this.getView();
+          var oModel = oView.getModel();
+
+          // DESVINCULA QUALQUER VINCULAÇÃO ANTERIOR DO CONTEXTO DA VISÃO, GARANTINDO QUE A TELA ESTEJA PRONTA PARA VINCULAR O NOVO REGISTRO CRIADO
+          oView.unbindElement();
 
           // CONFIGURA O MODELO PARA USAR GRUPOS DE MUDANÇA DIFERIDOS,
           // ONDE AS MUDANÇAS SÃO AGRUPADAS EM UM GRUPO DE MUDANÇA ESPECÍFICO PARA CRIAÇÃO DE REGISTROS
@@ -76,12 +81,7 @@ sap.ui.define(
             properties: {},
           });
 
-          // OBTÉM A VISÃO ATUAL E VINCULA O CONTEXTO DA VISÃO AO NOVO REGISTRO CRIADO,
-          // PERMITINDO QUE OS DADOS SEJAM EDITADOS NA TELA DE DETALHE DA EMPRESA
-          var oView = this.getView();
-
           // VINCULA O CONTEXTO DA VISÃO AO NOVO REGISTRO CRIADO, PERMITINDO QUE OS DADOS SEJAM EDITADOS NA TELA DE DETALHE DA EMPRESA
-          // oView.setBindingContext(oContext.getPath());
           oView.setBindingContext(oContext);
         },
 
@@ -100,41 +100,61 @@ sap.ui.define(
         // ONDE UMA MENSAGEM DE SUCESSO É EXIBIDA AO USUÁRIO
         handleSuccessSave: function (oRes, oData) {
           var oModel = this.getView().getModel();
+          var oBatchResponse = oRes.__batchResponses;
 
-          if (oRes.__batchResponses) {
-            var status = parseInt(
-              oRes.__batchResponses[0].__changeResponses[0].statusCode,
-            );
+          // GUARD: Verifica se a resposta do batch é válida e contém pelo menos uma resposta, caso contrário, exibe uma mensagem de sucesso e navega de volta para a tela anterior
+          if (!oBatchResponse || !oBatchResponse[0]) {
+            MessageToast.show("Salvo com Sucesso!");
+            this.onNavBack();
+            return;
+          }
 
-            if (status >= 400) {
-              var oResponseBody = JSON.parse(
-                oRes.__batchResponses[0].response.body,
-              );
+          var oFirstResponse = oBatchResponse[0];
+
+          // Guard: resposta com status code direto (sem __changeResponses),
+          // onde o status code é verificado para determinar se houve um erro ou se o salvamento foi bem-sucedido
+          if (oFirstResponse.response && oFirstResponse.response.statusCode) {
+            var iDirectStatus = parseInt(oFirstResponse.response.statusCode);
+
+            if (iDirectStatus >= 400) {
+              var oResponseBody = JSON.parse(oFirstResponse.response.body);
               MessageBox.alert(
-                "Error ao Salvar. ERRO: " + oResponseBody.error.message.value,
+                "Erro ao Salvar: " + oResponseBody.error.message.value,
               );
               oModel.resetChanges();
               oModel.refresh();
-            } else {
-              MessageToast.show("Salvo com Sucesso!");
-              this.onNavBack();
+              return;
             }
-          } else if (oRes.__batchResponses[0].__changeResponses) {
-            var aChangeRes = oRes.__batchResponses[0].__changeResponses;
-            var status = parseInt(aChangeRes[0].statusCode);
 
-            if (status >= 400) {
+            MessageToast.show("Salvo com Sucesso!");
+            this.onNavBack();
+            return;
+          }
+
+          // Guard: resposta com __changeResponses,
+          // onde o status code da primeira mudança é verificado para determinar se houve um erro ou se o salvamento foi bem-sucedido
+          if (
+            oFirstResponse.__changeResponses &&
+            oFirstResponse.__changeResponses.length > 0
+          ) {
+            var iChangeStatus = parseInt(
+              oFirstResponse.__changeResponses[0].statusCode,
+            );
+
+            if (iChangeStatus >= 400) {
               MessageBox.alert("Erro ao salvar os dados.");
               oModel.resetChanges();
               oModel.refresh();
-            } else {
-              MessageToast.show("Salvo com Sucesso!");
-              this.onNavBack();
+              return;
             }
-          } else {
+
             MessageToast.show("Salvo com Sucesso!");
             this.onNavBack();
+            return;
           }
+
+          MessageToast.show("Salvo com Sucesso!");
+          this.onNavBack();
         },
 
         // FUNÇÃO DE ERRO PARA O SALVAMENTO DAS ALTERAÇÕES NA TELA DE DETALHE DA EMPRESA,
