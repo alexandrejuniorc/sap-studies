@@ -167,6 +167,38 @@ sap.ui.define(
             }
           }
         },
+
+        onBtnDeletePress: function (oEvent) {
+          var oView = this.getView();
+          var oModel = oView.getModel();
+          var oContext = oView.getBindingContext();
+
+          MessageBox.confirm("O registro será excluído. Deseja continuar?", {
+            actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+            onClose: function (sAction) {
+              if (sAction === MessageBox.Action.OK) {
+                oModel.remove(oContext.getPath(), {
+                  success: this.handleSuccessDelete.bind(this),
+                  error: this.handleErrorDelete.bind(this),
+                });
+              }
+            }.bind(this),
+          });
+        },
+
+        handleSuccessDelete: function (oRes) {
+          MessageToast.show("Registro excluído com sucesso!");
+          this.onNavBack();
+        },
+
+        handleErrorDelete: function (oError) {
+          if (oError) {
+            if (oError.responseText) {
+              var oErrorMessage = JSON.parse(oError.responseText);
+              MessageBox.alert(oErrorMessage.error.message.value);
+            }
+          }
+        },
       },
     );
   },
