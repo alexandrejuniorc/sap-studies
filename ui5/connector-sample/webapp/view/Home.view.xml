@@ -1,0 +1,21 @@
+<mvc:View controllerName="connectorsample.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content >
+            <!-- <List id="companyList" items="{/ScarrSet}" headerText="{i18n>company_list_header_txt}">
+                <ObjectListItem id="scarrObjListItem" title="{Carrname}" type="Active">
+                    <ObjectAttribute id="urlAttr" text="{Url}" />
+                    <ObjectAttribute id="currAttr" text="{Currcode}" />
+                </ObjectListItem>
+            </List> -->
+
+            <List id="companyList" items="{airlines>/}" headerText="{i18n>company_list_header_txt}">
+                <ObjectListItem id="scarrObjListItem" title="{airlines>Carrname}" type="Active">
+                    <ObjectAttribute id="urlAttr" text="{airlines>Url}" />
+                    <ObjectAttribute id="currAttr" text="{airlines>Currcode}" />
+                </ObjectListItem>
+            </List>
+        </content>
+    </Page>
+</mvc:View>
