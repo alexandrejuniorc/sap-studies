@@ -4,9 +4,16 @@
     <Page id="page" title="{i18n>title}">
         <content>
             <List headerText="Products" headerLevel="H2">
-                <StandardListItem title="Produto 1" counter="7" />
-                <StandardListItem title="Produto 2" counter="10" />
-                <StandardListItem title="Produto 3" counter="5" />
+                <StandardListItem title="Arroz" counter="5" />
+                <StandardListItem title="Feijão" counter="8" />
+                <StandardListItem title="Macarrão" counter="10" />
+                <StandardListItem title="Óleo de Cozinha" counter="3" />
+                <StandardListItem title="Leite" counter="7" />
+                <StandardListItem title="Café" counter="4" />
+                <StandardListItem title="Açúcar" counter="6" />
+                <StandardListItem title="Sal" counter="2" />
+                <StandardListItem title="Farinha de Trigo" counter="9" />
+                <StandardListItem title="Sabonete" counter="11" />
             </List>
         </content>
     </Page>
