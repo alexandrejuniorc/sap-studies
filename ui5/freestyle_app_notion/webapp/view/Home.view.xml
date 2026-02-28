@@ -3,17 +3,17 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
-            <List headerText="Products" headerLevel="H2">
-                <StandardListItem title="Arroz" counter="5" />
-                <StandardListItem title="Feijão" counter="8" />
-                <StandardListItem title="Macarrão" counter="10" />
-                <StandardListItem title="Óleo de Cozinha" counter="3" />
-                <StandardListItem title="Leite" counter="7" />
-                <StandardListItem title="Café" counter="4" />
-                <StandardListItem title="Açúcar" counter="6" />
-                <StandardListItem title="Sal" counter="2" />
-                <StandardListItem title="Farinha de Trigo" counter="9" />
-                <StandardListItem title="Sabonete" counter="11" />
+            <List headerText="Products" headerLevel="H2" itemPress="onItemPress">
+                <StandardListItem type="Active" title="Arroz" counter="5" />
+                <StandardListItem type="Active" title="Feijão" counter="8" />
+                <StandardListItem type="Active" title="Macarrão" counter="10" />
+                <StandardListItem type="Active" title="Óleo de Cozinha" counter="3" />
+                <StandardListItem type="Active" title="Leite" counter="7" />
+                <StandardListItem type="Active" title="Café" counter="4" />
+                <StandardListItem type="Active" title="Açúcar" counter="6" />
+                <StandardListItem type="Active" title="Sal" counter="2" />
+                <StandardListItem type="Active" title="Farinha de Trigo" counter="9" />
+                <StandardListItem type="Active" title="Sabonete" counter="11" />
             </List>
         </content>
     </Page>
