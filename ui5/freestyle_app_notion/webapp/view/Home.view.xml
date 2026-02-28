@@ -6,6 +6,9 @@
     <Page
         id="page"
         title="{i18n>title}"
+        busy="{viewModel>/isLoading}"
+        busyIndicatorSize="Medium"
+        busyIndicatorDelay="0"
     >
         <content>
             <List

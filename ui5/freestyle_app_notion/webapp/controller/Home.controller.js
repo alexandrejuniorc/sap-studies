@@ -10,10 +10,20 @@ sap.ui.define(
 
     return Controller.extend("studies.freestyleappnotion.controller.Home", {
       async onInit() {
-        const oData = await Models.getProducts();
-        const oModel = new JSONModel(oData);
+        await this._fetchInitialData();
+      },
 
-        this.getView().setModel(oModel, "productsModel");
+      async _fetchInitialData() {
+        await this.getView().setBusy(true);
+
+        Models.getProducts()
+          .then((data) => {
+            const oModel = new JSONModel(data);
+            this.getView().setModel(oModel, "productsModel");
+          })
+          .finally(() => {
+            this.getView().setBusy(false);
+          });
       },
 
       onItemPress(oEvent) {

@@ -18,6 +18,13 @@ sap.ui.define(
         const model = new JSONModel();
         await model.loadData("/model/produtos.json");
 
+        // Simulate a delay to demonstrate the loading state in the UI
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve();
+          }, 2000);
+        });
+
         return model.getData();
       },
     };
