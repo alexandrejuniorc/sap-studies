@@ -17,7 +17,7 @@
                 <StandardListItem
                     type="Active"
                     title="{productsModel>nome}"
-                    counter="{productsModel>quantidade}"
+                    info="{productsModel>quantidade}"
                 />
             </List>
         </content>

@@ -11,21 +11,21 @@ sap.ui.define(
       onInit() {
         const data = {
           produtos: [
-            { nome: "Arroz", quantidade: 5 },
-            { nome: "Feijão", quantidade: 10 },
-            { nome: "Macarrão", quantidade: 8 },
-            { nome: "Óleo de Cozinha", quantidade: 3 },
-            { nome: "Leite", quantidade: 7 },
-            { nome: "Café", quantidade: 4 },
-            { nome: "Açúcar", quantidade: 6 },
-            { nome: "Sal", quantidade: 2 },
-            { nome: "Farinha de Trigo", quantidade: 9 },
-            { nome: "Sabonete", quantidade: 11 },
-            { nome: "Detergente", quantidade: 5 },
-            { nome: "Papel Higiênico", quantidade: 12 },
-            { nome: "Shampoo", quantidade: 7 },
-            { nome: "Condicionador", quantidade: 6 },
-            { nome: "Creme Dental", quantidade: 8 },
+            { nome: "Arroz", quantidade: 5, categoria: "Alimentos" },
+            { nome: "Feijão", quantidade: 0, categoria: "Alimentos" },
+            { nome: "Macarrão", quantidade: 8, categoria: "Alimentos" },
+            { nome: "Óleo de Cozinha", quantidade: 3, categoria: "Higiene" },
+            { nome: "Leite", quantidade: 0, categoria: "Alimentos" },
+            { nome: "Café", quantidade: 4, categoria: "Alimentos" },
+            { nome: "Açúcar", quantidade: 6, categoria: "Alimentos" },
+            { nome: "Sal", quantidade: 2, categoria: "Alimentos" },
+            { nome: "Farinha de Trigo", quantidade: 9, categoria: "Alimentos" },
+            { nome: "Sabonete", quantidade: 11, categoria: "Higiene" },
+            { nome: "Detergente", quantidade: 5, categoria: "Higiene" },
+            { nome: "Papel Higiênico", quantidade: 12, categoria: "Higiene" },
+            { nome: "Shampoo", quantidade: 0, categoria: "Higiene" },
+            { nome: "Condicionador", quantidade: 6, categoria: "Higiene" },
+            { nome: "Creme Dental", quantidade: 8, categoria: "Higiene" },
           ],
         };
 
@@ -34,9 +34,16 @@ sap.ui.define(
       },
 
       onItemPress(oEvent) {
-        const oItem = oEvent.getParameter("listItem");
+        const oItem = oEvent.getParameter("listItem"); // <- Pegue o componenente do Item
+        const oContext = oItem.getBindingContext("productsModel"); // <- nome da model bindada
+        const oData = oContext.getObject(); // Retorna o objeto completo do JSON
+
+        const hasItemInStock = oData.quantidade > 0;
+
         MessageToast.show(
-          `O item clicado '${oItem.getTitle()}' possui ${oItem.getCounter()} itens`,
+          hasItemInStock
+            ? `O item clicado '${oData.nome}' pertence à categoria ${oData.categoria} e está Disponível!`
+            : `O item clicado '${oData.nome}' pertence à categoria ${oData.categoria} e está Indisponível!`,
         );
       },
     });
