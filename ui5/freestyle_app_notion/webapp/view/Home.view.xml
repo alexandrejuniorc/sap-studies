@@ -9,18 +9,42 @@
         busy="{viewModel>/isLoading}"
         busyIndicatorSize="Medium"
         busyIndicatorDelay="0"
+        showHeader="false"
     >
         <content>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <SearchField
+                    liveChange=".onFiltrarProdutos"
+                    width="22rem"
+                />
+            </OverflowToolbar>
+
             <List
-                headerText="{i18n>productsTitle}"
-                headerLevel="H2"
-                items="{productsModel>/produtos}"
+                id="listaProdutos"
                 itemPress="onItemPress"
+                headerText="{i18n>productsTitle}"
+                items="{
+                    path: 'productsModel>/produtos',
+                    sorter: [
+                        {
+                            path: 'categoria', 
+                            descending: false, 
+                            group: true
+                        },
+                        {
+                            path: 'nome', 
+                            descending: false
+                        }
+                    ],
+                    groupHeaderFactory: '.criarCabecalhoGrupo'
+                }"
             >
                 <StandardListItem
                     type="Active"
                     title="{productsModel>nome}"
                     info="{productsModel>quantidade}"
+                    description="{productsModel>categoria}"
                 />
             </List>
         </content>

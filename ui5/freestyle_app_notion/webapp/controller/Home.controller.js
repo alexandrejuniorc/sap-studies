@@ -39,6 +39,32 @@ sap.ui.define(
             : `O item clicado '${oData.nome}' pertence à categoria ${oData.categoria} e está Indisponível!`,
         );
       },
+
+      onFiltrarProdutos(oEvent) {
+        const sQuery = oEvent.getParameter("newValue");
+        const oList = this.byId("listaProdutos");
+        const oBinding = oList.getBinding("items");
+
+        let aFiltros = [];
+        if (sQuery) {
+          aFiltros.push(
+            new sap.ui.model.Filter(
+              "nome",
+              sap.ui.model.FilterOperator.Contains,
+              sQuery,
+            ),
+          );
+        }
+
+        oBinding.filter(aFiltros);
+      },
+
+      criarCabecalhoGrupo: function (oGroup) {
+        return new sap.m.GroupHeaderListItem({
+          title: oGroup.key,
+          upperCase: false,
+        });
+      },
     });
   },
 );
