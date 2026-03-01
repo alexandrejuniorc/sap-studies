@@ -1,19 +1,109 @@
 {
   "produtos": [
-    { "nome": "Arroz", "quantidade": 5, "categoria": "Alimentos" },
-    { "nome": "Feijão", "quantidade": 0, "categoria": "Alimentos" },
-    { "nome": "Macarrão", "quantidade": 8, "categoria": "Alimentos" },
-    { "nome": "Óleo de Cozinha", "quantidade": 3, "categoria": "Higiene" },
-    { "nome": "Leite", "quantidade": 0, "categoria": "Alimentos" },
-    { "nome": "Café", "quantidade": 4, "categoria": "Alimentos" },
-    { "nome": "Açúcar", "quantidade": 6, "categoria": "Alimentos" },
-    { "nome": "Sal", "quantidade": 2, "categoria": "Alimentos" },
-    { "nome": "Farinha de Trigo", "quantidade": 9, "categoria": "Alimentos" },
-    { "nome": "Sabonete", "quantidade": 11, "categoria": "Higiene" },
-    { "nome": "Detergente", "quantidade": 5, "categoria": "Higiene" },
-    { "nome": "Papel Higiênico", "quantidade": 12, "categoria": "Higiene" },
-    { "nome": "Shampoo", "quantidade": 0, "categoria": "Higiene" },
-    { "nome": "Condicionador", "quantidade": 6, "categoria": "Higiene" },
-    { "nome": "Creme Dental", "quantidade": 8, "categoria": "Higiene" }
+    {
+      "nome": "Arroz",
+      "quantidade": 5,
+      "categoria": "Alimentos",
+      "preco": 5.5,
+      "status": "ACTIVE"
+    },
+    {
+      "nome": "Feijão",
+      "quantidade": 0,
+      "categoria": "Alimentos",
+      "preco": 6.2,
+      "status": "OUT_OF_STOCK"
+    },
+    {
+      "nome": "Macarrão",
+      "quantidade": 8,
+      "categoria": "Alimentos",
+      "preco": 2.8,
+      "status": "ACTIVE"
+    },
+    {
+      "nome": "Óleo de Cozinha",
+      "quantidade": 3,
+      "categoria": "Higiene",
+      "preco": 8.9,
+      "status": "PENDING"
+    },
+    {
+      "nome": "Leite",
+      "quantidade": 0,
+      "categoria": "Alimentos",
+      "preco": 4.5,
+      "status": "OUT_OF_STOCK"
+    },
+    {
+      "nome": "Café",
+      "quantidade": 4,
+      "categoria": "Alimentos",
+      "preco": 12.0,
+      "status": "ACTIVE"
+    },
+    {
+      "nome": "Açúcar",
+      "quantidade": 6,
+      "categoria": "Alimentos",
+      "preco": 4.8,
+      "status": "ACTIVE"
+    },
+    {
+      "nome": "Sal",
+      "quantidade": 2,
+      "categoria": "Alimentos",
+      "preco": 2.2,
+      "status": "PENDING"
+    },
+    {
+      "nome": "Farinha de Trigo",
+      "quantidade": 9,
+      "categoria": "Alimentos",
+      "preco": 3.5,
+      "status": "ACTIVE"
+    },
+    {
+      "nome": "Sabonete",
+      "quantidade": 11,
+      "categoria": "Higiene",
+      "preco": 2.5,
+      "status": "ACTIVE"
+    },
+    {
+      "nome": "Detergente",
+      "quantidade": 5,
+      "categoria": "Higiene",
+      "preco": 3.8,
+      "status": "ACTIVE"
+    },
+    {
+      "nome": "Papel Higiênico",
+      "quantidade": 12,
+      "categoria": "Higiene",
+      "preco": 15.0,
+      "status": "ACTIVE"
+    },
+    {
+      "nome": "Shampoo",
+      "quantidade": 0,
+      "categoria": "Higiene",
+      "preco": 8.5,
+      "status": "OUT_OF_STOCK"
+    },
+    {
+      "nome": "Condicionador",
+      "quantidade": 6,
+      "categoria": "Higiene",
+      "preco": 9.0,
+      "status": "ACTIVE"
+    },
+    {
+      "nome": "Creme Dental",
+      "quantidade": 8,
+      "categoria": "Higiene",
+      "preco": 5.2,
+      "status": "ACTIVE"
+    }
   ]
 }

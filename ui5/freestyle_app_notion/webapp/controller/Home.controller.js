@@ -4,11 +4,14 @@ sap.ui.define(
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
     "studies/freestyleappnotion/model/models",
+    "studies/freestyleappnotion/model/formatter",
   ],
-  (Controller, MessageToast, JSONModel, Models) => {
+  (Controller, MessageToast, JSONModel, Models, Formatter) => {
     "use strict";
 
     return Controller.extend("studies.freestyleappnotion.controller.Home", {
+      formatter: Formatter,
+
       async onInit() {
         await this._fetchInitialData();
       },

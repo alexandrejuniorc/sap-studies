@@ -40,12 +40,35 @@
                     groupHeaderFactory: '.criarCabecalhoGrupo'
                 }"
             >
-                <StandardListItem
+                <ObjectListItem
+                    title="{productsModel>nome}"
+                    type="Active"
+                    press="onItemPress"
+                    number="{path: 'productsModel>preco', formatter: '.formatter.formatarPreco'}"
+                    numberUnit="Preço"
+                    visible="{path: 'productsModel>quantidade', formatter: '.formatter.visivelSeTemEstoque'}"
+                >
+                    <firstStatus>
+                        <ObjectStatus
+                            text="{path: 'productsModel>status', formatter: '.formatter.traduzirStatus'}"
+                            state="{path: 'productsModel>status', formatter: '.formatter.corStatus' }"
+                        />
+                    </firstStatus>
+
+                    <attributes>
+                        <ObjectAttribute text="{productsModel>categoria}" />
+                        <ObjectAttribute
+                            text="Qtd: {productsModel>quantidade}"
+                        />
+                    </attributes>
+                </ObjectListItem>
+
+                <!-- <StandardListItem
                     type="Active"
                     title="{productsModel>nome}"
                     info="{productsModel>quantidade}"
                     description="{productsModel>categoria}"
-                />
+                /> -->
             </List>
         </content>
     </Page>
