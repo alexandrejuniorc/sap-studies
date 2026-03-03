@@ -3,3 +3,5 @@ const exportSRV = function (srv) {
     return `Hello ${req.data.msg}`;
   });
 };
+
+module.exports = exportSRV;
