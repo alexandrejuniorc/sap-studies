@@ -13,6 +13,11 @@ service exportSRV {
   *   Neste caso, a projeção "Estudantes" no serviço "mostrar" é baseada na entidade "Estudantes" do namespace "my", o que significa que ela herda a estrutura e os dados da entidade original,
   *   mas pode ser configurada para exibir apenas um subconjunto dos campos ou aplicar regras específicas de acesso.
   *  */
+
   @readonly
-  entity Estudantes as projection on my.Estudantes;
+  entity GetEstudantes    as projection on my.Estudantes;
+
+
+  @updateonly
+  entity UpdateEstudantes as projection on my.Estudantes;
 }
