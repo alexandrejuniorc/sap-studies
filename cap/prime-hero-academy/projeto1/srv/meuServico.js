@@ -1,6 +1,5 @@
 const cds = require("@sap/cds");
 const SELECT = require("@sap/cds/lib/ql/SELECT");
-const constante = "constante";
 
 module.exports = function (srv) {
   srv.on("READ", "Estudantes", async (req) => {
@@ -12,10 +11,19 @@ module.exports = function (srv) {
      * - SELECT.FROM: Realiza uma consulta SQL para selecionar dados da entidade especificada.
      */
 
+    let filtro = req.data;
+    let limit = req.query.$top;
+    let dados;
+
     try {
       const { Estudantes } = cds.entities("sap.cap.escola");
-      let dados = await SELECT.from(Estudantes);
-      console.log(dados);
+
+      if (filtro !== undefined) {
+        dados = await SELECT.from(Estudantes).where(filtro).limit(limit);
+      } else {
+        dados = await SELECT.from(Estudantes).limit(limit);
+      }
+
       return dados;
     } catch (error) {
       console.error("Erro ao ler os dados dos estudantes:", error);
