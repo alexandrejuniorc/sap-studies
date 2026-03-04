@@ -1,8 +1,9 @@
 const cds = require("@sap/cds");
+const SELECT = require("@sap/cds/lib/ql/SELECT");
 const constante = "constante";
 
 module.exports = function (srv) {
-  srv.on("READ", "evento", (req) => {
+  srv.on("READ", "Estudantes", async (req) => {
     /**
      * - cds.entities: Retorna um objeto que contém todas as entidades definidas no modelo de dados.
      *   "sap.cap.escola": Especifica o namespace e o nome da entidade que queremos acessar.
@@ -10,9 +11,15 @@ module.exports = function (srv) {
      *
      * - SELECT.FROM: Realiza uma consulta SQL para selecionar dados da entidade especificada.
      */
-    const estudantes = cds.entities("sap.cap.escola");
-    let dados = SELECT.FROM(estudantes);
 
-    return dados;
+    try {
+      const { Estudantes } = cds.entities("sap.cap.escola");
+      let dados = await SELECT.from(Estudantes);
+      console.log(dados);
+      return dados;
+    } catch (error) {
+      console.error("Erro ao ler os dados dos estudantes:", error);
+      throw error;
+    }
   });
 };
