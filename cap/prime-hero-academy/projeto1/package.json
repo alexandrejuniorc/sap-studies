@@ -4,16 +4,17 @@
   "description": "Welcome to your new CAP project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cds-serve"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "@sap/cds": "^9"
   },
-  "devDependencies": {},
   "cds": {
     "requires": {
       "db": {
@@ -23,5 +24,9 @@
         }
       }
     }
-  }
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2"
+  },
+  "private": true
 }

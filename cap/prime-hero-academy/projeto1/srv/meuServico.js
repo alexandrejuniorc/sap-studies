@@ -1,12 +1,18 @@
+const cds = require("@sap/cds");
 const constante = "constante";
 
 module.exports = function (srv) {
-  srv.on("evento", (req) => {
-    if (req.data.msg === "teste") {
-      console.log("Esta mensagem foi apenas um teste!");
-    } else {
-      console.log("Esta mensagem não é um teste!");
-    }
-    return "Hello " + req.data.msg;
+  srv.on("READ", "evento", (req) => {
+    /**
+     * - cds.entities: Retorna um objeto que contém todas as entidades definidas no modelo de dados.
+     *   "sap.cap.escola": Especifica o namespace e o nome da entidade que queremos acessar.
+     *   No caso, estamos acessando a entidade "estudantes" dentro do namespace "sap.cap.escola".
+     *
+     * - SELECT.FROM: Realiza uma consulta SQL para selecionar dados da entidade especificada.
+     */
+    const estudantes = cds.entities("sap.cap.escola");
+    let dados = SELECT.FROM(estudantes);
+
+    return dados;
   });
 };
