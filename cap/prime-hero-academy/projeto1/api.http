@@ -1,18 +1,16 @@
 @BASE_URL = http://localhost:4004/odata/v4
 
 ### Lista Estudantes
-GET {{BASE_URL}}/export-srv/Estudantes
+GET {{BASE_URL}}/export-srv/GetEstudantes
 
 ### Filtra Estudante por email
-GET {{BASE_URL}}/export-srv/Estudantes(email='joao.silva@example.com')
+GET {{BASE_URL}}/export-srv/GetEstudantes(email='joao.silva@example.com')
 
 ### Cria Estudante
-POST {{BASE_URL}}/export-srv/Estudantes
+POST {{BASE_URL}}/export-srv/UpdateEstudantes
 Content-Type: application/json
 
 {
-  "first_name": "João",
-  "last_name": "Silva",
-  "email": "joao.silva@example.com",
-  "created_at": "2024-06-05"
+  "first_name": "Joãozinho",
+  "email": "joao.silva@example.com"
 }

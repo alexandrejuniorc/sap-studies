@@ -1,6 +1,8 @@
 const cds = require("@sap/cds");
 const SELECT = require("@sap/cds/lib/ql/SELECT");
 
+const { Estudantes } = cds.entities("sap.cap.escola");
+
 module.exports = function (srv) {
   /**
    * - srv.on: Registra um manipulador de eventos para a operação "READ" na entidade "Estudantes".
@@ -21,8 +23,6 @@ module.exports = function (srv) {
     let dados;
 
     try {
-      const { Estudantes } = cds.entities("sap.cap.escola");
-
       if (filtro !== undefined) {
         dados = await SELECT.from(Estudantes).where(filtro).limit(limit);
       } else {
@@ -55,5 +55,28 @@ module.exports = function (srv) {
    *   Por exemplo, você pode usar o método UPDATE do CDS para atualizar os registros na entidade "Estudantes" com os dados fornecidos.
    *   Certifique-se de lidar com erros e validar os dados conforme necessário para garantir a integridade dos dados.
    */
-  srv.on("UPDATE", "UpdateEstudantes", async (req) => {});
+  srv.on("CREATE", "UpdateEstudantes", async (req) => {
+    let firstName = req.data.first_name;
+    let lastName = req.data.last_name;
+    let email = req.data.email;
+
+    try {
+      let result = await cds.run(
+        UPDATE(Estudantes)
+          .set({
+            first_name: firstName,
+          })
+          .where({ email }),
+      );
+
+      if (typeof result !== "undefined" && result >= 1) {
+        return req.data;
+      } else {
+        console.log("Registro não encontrado para atualização.");
+      }
+    } catch (err) {
+      console.error("Erro ao atualizar o estudante:", err);
+      throw err;
+    }
+  });
 };
