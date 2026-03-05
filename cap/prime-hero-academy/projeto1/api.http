@@ -1,16 +1,49 @@
-@BASE_URL = http://localhost:4004/odata/v4
+@BASE_URL = http://localhost:4004/odata/v4/export-srv
 
-### Lista Estudantes
-GET {{BASE_URL}}/export-srv/GetEstudantes
+###############################################################################
+# READ - Listar Estudantes
+###############################################################################
+
+### Lista todos os Estudantes
+GET {{BASE_URL}}/GetEstudantes
+
+### Lista Estudantes com limite
+GET {{BASE_URL}}/GetEstudantes?$top=10
 
 ### Filtra Estudante por email
-GET {{BASE_URL}}/export-srv/GetEstudantes(email='joao.silva@example.com')
+GET {{BASE_URL}}/GetEstudantes(email='joao.silva@example.com')
 
-### Cria Estudante
-POST {{BASE_URL}}/export-srv/UpdateEstudantes
+###############################################################################
+# CREATE - Criar Estudante
+###############################################################################
+
+### Cria novo Estudante
+POST {{BASE_URL}}/InsertEstudante
 Content-Type: application/json
 
 {
-  "first_name": "Joãozinho",
+  "first_name": "João",
+  "last_name": "Silva",
+  "email": "joao.silva2@example.com"
+}
+
+###############################################################################
+# UPDATE - Atualizar Estudante
+###############################################################################
+
+### Atualiza Estudante por email
+PUT {{BASE_URL}}/UpdateEstudante
+Content-Type: application/json
+
+{
+  "first_name": "João Atualizado 1",
+  "last_name": "Silva Atualizado",
   "email": "joao.silva@example.com"
 }
+
+###############################################################################
+# DELETE - Deletar Estudante
+###############################################################################
+
+### Deleta Estudante por email
+DELETE {{BASE_URL}}/DeleteEstudante(email='joao.silva2@example.com')

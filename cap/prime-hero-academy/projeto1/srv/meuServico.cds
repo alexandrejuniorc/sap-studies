@@ -8,6 +8,8 @@ service exportSRV {
   * - @readonly = significa que a entidade é somente leitura, ou seja, não pode ser modificada através deste serviço.
   *   Isso é útil para garantir a integridade dos dados e evitar alterações acidentais ou não autorizadas.
   *
+  * - @updateonly = indica que a entidade é somente para atualização, ou seja, pode ser modificada, mas não pode ser criada ou excluída através deste serviço.
+  *
   * - @as projection = indica que a entidade "Estudantes" é uma projeção da entidade "Estudantes" definida no namespace "my".
   *   Uma projeção é uma visão personalizada de uma entidade, permitindo que você selecione apenas os campos necessários ou aplique filtros específicos.
   *   Neste caso, a projeção "Estudantes" no serviço "mostrar" é baseada na entidade "Estudantes" do namespace "my", o que significa que ela herda a estrutura e os dados da entidade original,
@@ -15,9 +17,16 @@ service exportSRV {
   *  */
 
   @readonly
-  entity GetEstudantes    as projection on my.Estudantes;
-
+  entity GetEstudantes   as projection on my.Estudantes;
 
   @updateonly
-  entity UpdateEstudantes as projection on my.Estudantes;
+  entity UpdateEstudante as projection on my.Estudantes;
+
+  @insertonly
+  entity InsertEstudante as projection on my.Estudantes;
+
+  @deleteonly
+  entity DeleteEstudante as projection on my.Estudantes;
+
+
 }

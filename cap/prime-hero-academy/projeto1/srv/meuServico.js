@@ -55,18 +55,12 @@ module.exports = function (srv) {
    *   Por exemplo, você pode usar o método UPDATE do CDS para atualizar os registros na entidade "Estudantes" com os dados fornecidos.
    *   Certifique-se de lidar com erros e validar os dados conforme necessário para garantir a integridade dos dados.
    */
-  srv.on("CREATE", "UpdateEstudantes", async (req) => {
-    let firstName = req.data.first_name;
-    let lastName = req.data.last_name;
-    let email = req.data.email;
+  srv.on("UPDATE", "UpdateEstudante", async (req) => {
+    const { first_name, last_name, email } = req.data;
 
     try {
       let result = await cds.run(
-        UPDATE(Estudantes)
-          .set({
-            first_name: firstName,
-          })
-          .where({ email }),
+        UPDATE(Estudantes).set({ first_name, last_name }).where({ email }),
       );
 
       if (typeof result !== "undefined" && result >= 1) {
@@ -77,6 +71,34 @@ module.exports = function (srv) {
     } catch (err) {
       console.error("Erro ao atualizar o estudante:", err);
       throw err;
+    }
+  });
+
+  srv.on("CREATE", "InsertEstudante", async (req) => {
+    let { data } = req;
+
+    try {
+      const result = await cds.run(
+        INSERT.into(Estudantes).entries({ ...data, created_at: new Date() }),
+      );
+
+      return result;
+    } catch (error) {
+      console.error("Erro ao criar o estudante:", error);
+      throw error;
+    }
+  });
+
+  srv.on("DELETE", "DeleteEstudante", async (req) => {
+    let { email } = req.data;
+
+    try {
+      const result = await cds.run(DELETE.from(Estudantes).where({ email }));
+      console.log(result);
+      return { message: "Estudante deletado com sucesso." };
+    } catch (error) {
+      console.error("Erro ao deletar o estudante:", error);
+      throw error;
     }
   });
 };
